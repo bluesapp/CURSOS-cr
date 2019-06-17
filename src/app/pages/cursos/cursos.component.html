@@ -1,67 +1,114 @@
 <div class="mt-3 shadow p-3 mb-5 bg-white rounded">
     <h3>Formulario de Registro</h3>
     <br>
-    <form (ngSubmit)="addProduct(f)" #f="ngForm">
+    <form (ngSubmit)="addProduct(f)" #f="ngForm" class="needs-validation" novalidate>
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-
-                <label for="servicio">Servicios</label>
-                <span *ngIf="f.submitted && f.controls['servicio'].errors" class="text-danger"> Campo Obligatorio</span>
-                <select name="servicio" id="servicio" class="form-control" (change)="onSelect($event.target.value)"
-                    [(ngModel)]="product.servicio" required>
+        <!-- Servicios -->
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Servicios</label>
+            <div class="col-4">
+                <select 
+                        name="servicio" 
+                        class="form-control" 
+                        (change)="onSelect($event.target.value)"
+                        [(ngModel)]="product.servicio" 
+                        required
+                        #servicio="ngModel"
+                        [ngClass]="{'is-invalid': servicio?.errors?.required, 'is-valid' : true}"
+                        >
                     <option *ngFor="let servicio of servicios" value={{servicio.id}}>{{servicio.name}}</option>
                 </select>
             </div>
-
-            <div class="form-group col-md-6">
-                <label for="tipoServicio">Tipo de Servicio * </label>
-                <span *ngIf="f.submitted && f.controls['tipoServicio'].errors" class="text-danger"> Campo
-                    Obligatorio</span>
-                <select class="form-control" name="tipoServicio" [(ngModel)]="product.tipoServicio" required>
+            <label class="col-2 col-form-label">Tipo de Servicios</label>
+            <div class="col-4">
+                <select 
+                        class="form-control" 
+                        name="tipoServicio" 
+                        [(ngModel)]="product.tipoServicio" 
+                        required
+                        #tipoServicio="ngModel"
+                        [ngClass]="{'is-invalid': tipoServicio?.errors?.required, 'is-valid' : true}">
                     <option *ngFor="let state of states " value={{state.name}}>{{state.name}}</option>
                 </select>
             </div>
         </div>
+
+        <hr>
         <div>
             <button (click)="mostrar = !mostrar" type="button" class="btn btn-primary"> Persona / Empresa </button>
         </div>
-
+        <hr>
         <div *ngIf="mostrar">
-            <br>
-            <div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Datos Empresa</label>
-                        <span *ngIf="f.submitted && f.controls['nit'].errors" class="text-danger"> Campo
-                            Obligatorio</span>
-                        <input name="nit" type="number" class="form-control" id="nit" placeholder="NIT*"
-                            autocomplete="off" required [(ngModel)]="product.nit">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Nombre Empresa</label>
-                        <span *ngIf="f.submitted && f.controls['nombreE'].errors" class="text-danger"> Campo
-                            Obligatorio</span>
-                        <input name="nombreE" [(ngModel)]="product.nombreE" type="text" class="form-control"
-                            id="nombreEmpresa" required pattern="[A-Za-z]+">
-                    </div>
+            <!-- Datos empresa -->
+
+            <label>Datos Empresa</label>
+
+            <div class="form-group row">
+                <label class="col-2 col-form-label">NIT</label>
+                <div class="col-4">
+                    <input 
+                    name="nit" 
+                    type="number" 
+                    class="form-control" 
+                    placeholder="NIT" 
+                    autocomplete="off" 
+                    required
+                    [(ngModel)]="product.nit"
+                    #nit="ngModel"
+                    [ngClass]="{'is-invalid': nit?.errors?.required, 'is-valid' : true}"
+                    >
+                    
+                </div>
+
+
+                <label class="col-2 col-form-label">Nombre Empresa:</label>
+                <div class="col-4">
+                    <input 
+                            name="nombreE" 
+                            [(ngModel)]="product.nombreE" 
+                            type="text" 
+                            class="form-control" 
+                            required
+                            pattern="[A-Za-z]+"
+                            #nombreE="ngModel"
+                            [ngClass]="{'is-invalid': nombreE?.errors?.required, 'is-valid' : true}"
+                            >
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <input name="telefonoE" [(ngModel)]="product.telefonoE" type="tel" class="form-control"
-                        id="telefonoE" placeholder="Telefono Fijo Empresa" autocomplete="off">
+
+            <div class="form-group row">
+                <label class="col-2 col-form-label">Tel. Empresa</label>
+                <div class="col-4">
+                    <input 
+                    name="telefonoE" 
+                    [(ngModel)]="product.telefonoE" 
+                    type="tel" 
+                    class="form-control"
+                    placeholder="Telefono Empresa" 
+                    autocomplete="off"
+                    telefonoE="ngModel"
+                    [ngClass]="{'is-invalid': nombreE?.errors?.required, 'is-valid' : true}"
+                    >
                 </div>
             </div>
+            <hr>
+
+            <!-- Persona Natural -->
             <label>Contacto</label>
         </div>
         <br>
-        <div class="form-row" *ngIf="!mostrar">
-            <div class="form-group col-md-6">
-                <label for="documento">Tipo Documento </label>
-                <span *ngIf="f.submitted && f.controls['documento'].errors" class="text-danger"> Campo
-                    Obligatorio</span>
-                <select class="custom-select" name="documento" id="documento" [(ngModel)]="product.documento">
+        <div class="form-group row" *ngIf="!mostrar">
+            <label class="col-2 col-form-label">Tipo Documento</label>
+            <div class="col-4">
+
+                <select 
+                        class="custom-select" 
+                        name="documento" 
+                        [(ngModel)]="product.documento"
+                        required
+                        #documento="ngModel"
+                        [ngClass]="{'is-invalid': documento?.errors?.required, 'is-valid' : true}">
+                        >
                     <option selected> C.C.</option>
                     <option value="C.C.">C.E.</option>
                     <option value="Pasaporte">Pasaporte</option>
@@ -69,104 +116,255 @@
                     <option value="T.I.">T.I.</option>
                 </select>
             </div>
-            <div class="form-group col-md-6">
-                <label for="servicio">Numero de Identificación</label>
-                <span *ngIf="f.submitted && f.controls['nDocumento'].errors" class="text-danger"> Campo
-                    Obligatorio</span>
-                <input name="nDocumento" [(ngModel)]="product.nit" type="number" class="form-control" id="nDocumento"
-                    autocomplete="off" required>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-12">
-                <span *ngIf="f.submitted && f.controls['primerN'].errors" class="text-danger">Campo obligatorio - Solo
-                    letras</span>
-            </div>
-            <div class="form-group col-md-6">
-                <input name="primerN" [(ngModel)]="product.primerN" type="text" class="form-control" id="primerN"
-                    placeholder="Primer Nombre *" autocomplete="off" minlength="2" required pattern="[A-Za-z]+">
-            </div>
-
-            <div class="form-group col-md-6">
-                <input name="segundoN" [(ngModel)]="product.segundoN" type="text" class="form-control" id="seundoN"
-                    placeholder="Segundo Nombre" autocomplete="off" pattern="[A-Za-z]+">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-12">
-                <span *ngIf="f.submitted && f.controls['primerA'].errors" class="text-danger">Campo obligatorio - Solo
-                    letras</span>
-            </div>
-            <div class="form-group col-md-6">
-                <input name="primerA" [(ngModel)]="product.primerA" type="text" class="form-control" id="primerA"
-                    placeholder="Primer Apellido *" autocomplete="off" required pattern="[A-Za-z]+">
-            </div>
-            <div class="form-group col-md-6">
-                <input name="segundoA" [(ngModel)]="product.segundoA" type="text" class="form-control" id="segundoA"
-                    placeholder="Segundo Apellido" autocomplete="off" pattern="[A-Za-z]+">
+            <label class="col-2 col-form-label">Numero Doc.</label>
+            <div class="col-4">
+                <input 
+                        name="nDocumento" 
+                        [(ngModel)]="product.nDocumento" 
+                        type="text" 
+                        class="form-control"
+                        placeholder="Numero de Identidad" 
+                        autocomplete="off" 
+                        minlength="5" 
+                        required 
+                        #nDocumento="ngModel"
+                        [ngClass]="{'is-invalid': nDocumento?.errors?.required || nDocumento?.errors?.minlength , 'is-valid' : true}"
+                        >
+                       
             </div>
         </div>
 
 
-        <div class="form-row">
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Primer Nombre</label>
+            <div class="col-4">
+                <input 
+                        name="primerN" 
+                        [(ngModel)]="product.primerN" 
+                        type="text" 
+                        class="form-control"
+                        placeholder="Primer Nombre" 
+                        autocomplete="off" 
+                        minlength="2" 
+                        required 
+                        pattern="[A-Za-z]+"
+                        #primerN="ngModel"
+                        [ngClass]="{'is-invalid': primerN?.errors?.required || primerN?.errors?.minlength || primerN?.errors?.pattern, 'is-valid' : true}"
+                        >
 
-            <div class="form-group col-md-6">
-                <label for="ciudad">Ciudad * &nbsp;</label>
-                <span *ngIf="f.submitted && f.controls['ciudad'].errors" class="text-danger"> Campo obligatorio</span>
-                <select name="ciudad" id="ciudad" class="form-control" (change)="onSelectCiudad($event.target.value)"
-                    [(ngModel)]="product.ciudad" required>
+                        <!-- <div class="invalid-feedback" *ngIf="primerN?.errors?.required">
+                                Este campo es requerido
+                        </div> -->
+                        <div class="invalid-feedback" *ngIf="primerN?.errors?.minlength">
+                          por lo menos {{ primerN.errors.minlength.requiredLength }} caracteres
+                        </div>
+                        <div class="invalid-feedback" *ngIf="primerN?.errors?.pattern">
+                          Solo letras [Aa-Zz]
+                        </div>
+                         
+            </div>
+            <label class="col-2 col-form-label">Segundo nombre</label>
+            <div class="col-4">
+                <input 
+                        name="segundoN" 
+                        [(ngModel)]="product.segundoN" 
+                        type="text" 
+                        class="form-control"
+                        placeholder="Segundo Nombre" 
+                        autocomplete="off"
+                        minlength="2"
+                        #segundoN="ngModel"
+                        [ngClass]="{'is-invalid': segundoN?.errors?.minlength}"
+                        >
+                        <div class="invalid-feedback" *ngIf="segundoN?.errors?.minlength">
+                            por lo menos {{ segundoN.errors.minlength.requiredLength }} caracteres
+                        </div>
+                        <!-- pattern="[A-Za-z]+\s+" -->
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Primer Apellido</label>
+            <div class="col-4">
+                <input 
+                        name="primerA" 
+                        [(ngModel)]="product.primerA" 
+                        type="text" class="form-control"
+                        placeholder="Primer Apellido *" 
+                        autocomplete="off" 
+                        required pattern="[A-Za-z]+"
+                        required
+                        minlength="2"
+                        pattern="[A-Za-z]+"
+                        #primerA="ngModel"
+                        [ngClass]="{'is-invalid': primerA?.errors?.required || primerA?.errors?.minlength || primerA?.errors?.pattern, 'is-valid' : true}"
+                        >
+
+                        <!-- <div class="invalid-feedback" *ngIf="primerA?.errors?.required">
+                                Este campo es requerido
+                        </div> -->
+                        <div class="invalid-feedback" *ngIf="primerA?.errors?.minlength">
+                          por lo menos {{ primerA.errors.minlength.requiredLength }} caracteres
+                        </div>
+                        <div class="invalid-feedback" *ngIf="primerA?.errors?.pattern">
+                          Solo letras [Aa-Zz]
+                        </div>
+            </div>
+            <label class="col-2 col-form-label">Segundo Apellido</label>
+            <div class="col-4">
+                <input 
+                        name="segundoA" 
+                        [(ngModel)]="product.segundoA" 
+                        type="text" class="form-control"
+                        placeholder="Segundo Apellido" 
+                        autocomplete="off" 
+                        pattern="[A-Za-z]+"
+                        minlength="2"
+                        #segundoA="ngModel"
+                        [ngClass]="{'is-invalid': segundoA?.errors?.minlength}"
+                        >
+                        <div class="invalid-feedback" *ngIf="segundoA?.errors?.minlength">
+                            por lo menos {{ segundoA.errors.minlength.requiredLength }} caracteres
+                        </div>
+            </div>
+        </div>
+
+        <!-- area -->
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Ciudad</label>
+            <div class="col-4">
+                <select 
+                        name="ciudad" 
+                        class="form-control" 
+                        (change)="onSelectCiudad($event.target.value)"
+                        [(ngModel)]="product.ciudad" 
+                        required
+                        #ciudad="ngModel"
+                        [ngClass]="{'is-invalid': ciudad?.errors?.required, 'is-valid' : true}"
+                        >
                     <option *ngFor="let ciudad of ciudades" value={{ciudad.id}}>{{ciudad.name}}</option>
                 </select>
-
-
-
             </div>
-            <div class="form-group col-md-6" *ngIf="!otra">
-                <label for="municipio">Municipio/Localidad * &nbsp;</label>
-                <span *ngIf="f.submitted && f.controls['municipio'].errors" class="text-danger">Campo obligatorio</span>
-                <select class="form-control" name="municipio" [(ngModel)]="product.munLocalidad" required>
-                    <option *ngFor="let municipio of municipios " value="{{municipio.name}}">{{municipio.name}}</option>
+
+            <label class="col-2 col-form-label" *ngIf="!otra">Localidad/Municipio</label>
+            <div class="col-4" *ngIf="!otra">
+                <select 
+                        class="form-control" 
+                        name="municipio" 
+                        [(ngModel)]="product.munLocalidad" 
+                        required
+                        #municipio="ngModel"
+                        [ngClass]="{'is-invalid': municipio?.errors?.required, 'is-valid' : true}"
+                        
+                        >
+                    <option *ngFor="let municipio of municipios " value="{{municipio.name}}">{{municipio.name}}
+                    </option>
                 </select>
             </div>
-            <div class="form-group col-md-6" *ngIf="otra">
-                <label for="municipio2">Ingrese Ciudad* &nbsp;</label>
-                <span *ngIf="f.submitted && f.controls['municipio2'].errors" class="text-danger">Campo
-                    obligatorio</span>
-                <input name="municipio2" id="municipio2" (ngModel)="product.munLocalidad" type="text"
-                    class="form-control" autocomplete="off"  required>
+
+            <label class="col-2 col-form-label" *ngIf="otra">Ingrese Ciudad</label>
+            <div class="col-4" *ngIf="otra">
+                <input 
+                        name="municipio" 
+                        (ngModel)="product.munLocalidad" 
+                        type="text" 
+                        class="form-control"
+                        autocomplete="off"
+                        required
+                        #municipio="ngModel"
+                        [ngClass]="{'is-invalid': municipio?.errors?.required, 'is-valid' : true}"
+                        
+                >
             </div>
         </div>
 
+        <!-- Datos de contacxto -->
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <span *ngIf="f.submitted && f.controls['telCel'].errors" class="text-danger">Campo obligatorio</span>
-                <input name="telCel" [(ngModel)]="product.telCel" type="number" class="form-control" id="telefono"
-                    placeholder="Telefono / Celular" autocomplete="off" required>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Fijo/Celular</label>
+            <div class="col-4">
+                <input 
+                        name="telCel" 
+                        [(ngModel)]="product.telCel" 
+                        type="number" 
+                        class="form-control"
+                        placeholder="Telefono / Celular" 
+                        autocomplete="off" 
+                        required
+                        #telCel="ngModel"
+                        [ngClass]="{'is-invalid': telCel?.errors?.required, 'is-valid' : true}"
+                        >
             </div>
-            <div class="form-group col-md-6">
-                <span *ngIf="f.submitted && f.controls['correo'].errors" class="text-danger">Formato de correo no valido</span>
-                <input name="correo" [(ngModel)]="product.correo" type="email" class="form-control" id="correo"
-                    aria-describedby="emailHelp" placeholder="Correo Electronico" autocomplete="off" required
-                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+            <label class="col-2 col-form-label">Email</label>
+            <div class="col-4">
+                <input 
+                name="correo" 
+                [(ngModel)]="product.correo" 
+                type="email" 
+                class="form-control" 
+                placeholder="Ejemplo: micorreo@dominio.com" 
+                autocomplete="off" 
+                required 
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                #email="ngModel"
+                [ngClass]="{'is-invalid': email?.errors?.required ||  email?.errors?.pattern, 'is-valid' : true}"
+                >
+                <div class="invalid-feedback" *ngIf="email?.errors?.pattern">
+                    No cumple con el patron establecido
+                </div>
             </div>
 
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-6" *ngIf="!mostrar">
-                <label for="inputState">Fecha de Nacimiento</label>
-                <input name="fecha" [(ngModel)]="product.fecha" type="date" class="form-control" id="seundoNombre">
+        <div class="form-group row">
+            <label class="col-2 col-form-label" *ngIf="!mostrar">Fecha Nac.</label>
+            <div class="col-4" *ngIf="!mostrar">
+                <input name="fecha" [(ngModel)]="product.fecha" type="date" class="form-control">
             </div>
-            <div class="form-group col-md-6">
-                <label for="observacion">Observación</label>
-                <textarea class="form-control" id="observacion" name="observacion" [(ngModel)]="product.observacion"
-                    rows="1"></textarea>
+            <label class="col-2 col-form-label">Observación</label>
+            <div class="col-4">
+                <textarea 
+                            class="form-control" 
+                            name="observacion"
+                            [(ngModel)]="product.observacion" 
+                            placeholder="Haga una breve descripción" 
+                            rows="1" 
+                            autocomplete="off"
+                            minlength="2"
+                            #observacionS="ngModel"
+                            [ngClass]="{'is-invalid': observacionS?.error?.minlength}"
+                            >
+                            </textarea>
+                            <div class="invalid-feedback" *ngIf="observacionS?.errors?.minlength">
+                                por lo menos {{ observacionS.errors.minlength.requiredLength }} caracteres
+                            </div>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button [disabled]="!f.valid" type="submit" class="btn btn-primary">Guardar</button>
         <!-- [disabled]="!f.valid" -->
     </form>
 
 
 </div>
+
+<script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+          'use strict';
+          window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+              form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+              }, false);
+            });
+          }, false);
+        })();
+        </script>
