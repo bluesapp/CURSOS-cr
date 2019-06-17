@@ -22,11 +22,12 @@ import { SelectService } from './services/select.service';
 //Firebase
 
 import { AngularFireModule } from '@angular/fire';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.prod';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { NavbarComponent } from './pages/navbar/navbar.component';
+import { TableComponent } from './pages/table/table.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
     LoginComponent,
     RegistroComponent,
     CursosComponent,
-    NavbarComponent
+    NavbarComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,

@@ -3,11 +3,10 @@ export interface Product {
   tipoServicio?: string;
   servicio?: string;
   nit?: string;
-  nombreEmpresa?: string;
+  nombreE?: string;
   telefonoE?: string;
-  documento: string;
-  nDocumento: string;
-  primerN: string
+  documento?: string;
+  primerN?: string
   segundoN?: string;
   primerA?: string;
   segundoA?: string;
@@ -18,8 +17,8 @@ export interface Product {
   correo?: string;
   observacion?: string;
   eje?: string;
-  fechaReg: string;
-  horaReg: string;
+  fechaReg?: string;
+  horaReg?: string;
   usuario?: string;
   otraCiudad?: string;
 }

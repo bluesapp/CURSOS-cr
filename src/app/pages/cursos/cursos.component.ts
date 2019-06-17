@@ -62,15 +62,15 @@ export class CursosComponent implements OnInit {
   }
 
   addProduct(form: NgForm) {
+   
     if (form.invalid) {
       return;
     }
-
-
-    this.product.fechaReg = moment().subtract(10, 'days').calendar();
+    
+    this.product.fechaReg = moment().format('l');
     this.product.horaReg = moment().format('LTS');
     this.product.usuario = localStorage.getItem('email');
-    console.log(this.product);
+    console.log(this.product.ciudad);
 
     this.productService.addProducts(this.product);
     this.product = {} as Product;
@@ -82,6 +82,9 @@ export class CursosComponent implements OnInit {
       timer: 1500
     })
     location.reload();
+    
+    console.log('sale');
+    
     //this.router.navigateByUrl('/cursos');
 
   }
@@ -93,15 +96,15 @@ export class CursosComponent implements OnInit {
   }
 
   onSelectCiudad(servicioid) {
-    console.log('Ciudad Ok');
-    
+  
     this.municipios = this.selectService.getMunicipios().filter((item) => item.servicioid == servicioid)
     if (servicioid == 3) {
+     
       return this.otra = true;
     } else {
       return this.otra = false;
     }
-
+    
   }
 
 

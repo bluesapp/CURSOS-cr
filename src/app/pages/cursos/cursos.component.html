@@ -6,7 +6,7 @@
         <div class="form-row">
             <div class="form-group col-md-6">
 
-                <label for="servicio">Servicios *</label>
+                <label for="servicio">Servicios</label>
                 <span *ngIf="f.submitted && f.controls['servicio'].errors" class="text-danger"> Campo Obligatorio</span>
                 <select name="servicio" id="servicio" class="form-control" (change)="onSelect($event.target.value)"
                     [(ngModel)]="product.servicio" required>
@@ -43,7 +43,7 @@
                         <span *ngIf="f.submitted && f.controls['nombreE'].errors" class="text-danger"> Campo
                             Obligatorio</span>
                         <input name="nombreE" [(ngModel)]="product.nombreE" type="text" class="form-control"
-                            id="nombreEmpresa" required>
+                            id="nombreEmpresa" required pattern="[A-Za-z]+">
                     </div>
                 </div>
             </div>
@@ -74,33 +74,36 @@
                 <span *ngIf="f.submitted && f.controls['nDocumento'].errors" class="text-danger"> Campo
                     Obligatorio</span>
                 <input name="nDocumento" [(ngModel)]="product.nit" type="number" class="form-control" id="nDocumento"
-                    autocomplete="off">
+                    autocomplete="off" required>
             </div>
         </div>
         <div class="form-row">
             <div class="col-md-12">
-                <span *ngIf="f.submitted && f.controls['primerN'].errors" class="text-danger">Campo obligatorio</span>
+                <span *ngIf="f.submitted && f.controls['primerN'].errors" class="text-danger">Campo obligatorio - Solo
+                    letras</span>
             </div>
             <div class="form-group col-md-6">
                 <input name="primerN" [(ngModel)]="product.primerN" type="text" class="form-control" id="primerN"
-                    placeholder="Primer Nombre *" autocomplete="off" minlength="2" required>
+                    placeholder="Primer Nombre *" autocomplete="off" minlength="2" required pattern="[A-Za-z]+">
             </div>
+
             <div class="form-group col-md-6">
                 <input name="segundoN" [(ngModel)]="product.segundoN" type="text" class="form-control" id="seundoN"
-                    placeholder="Segundo Nombre" autocomplete="off">
+                    placeholder="Segundo Nombre" autocomplete="off" pattern="[A-Za-z]+">
             </div>
         </div>
         <div class="form-row">
             <div class="col-md-12">
-                <span *ngIf="f.submitted && f.controls['primerA'].errors" class="text-danger">Campo obligatorio</span>
+                <span *ngIf="f.submitted && f.controls['primerA'].errors" class="text-danger">Campo obligatorio - Solo
+                    letras</span>
             </div>
             <div class="form-group col-md-6">
                 <input name="primerA" [(ngModel)]="product.primerA" type="text" class="form-control" id="primerA"
-                    placeholder="Primer Apellido *" autocomplete="off" required>
+                    placeholder="Primer Apellido *" autocomplete="off" required pattern="[A-Za-z]+">
             </div>
             <div class="form-group col-md-6">
                 <input name="segundoA" [(ngModel)]="product.segundoA" type="text" class="form-control" id="segundoA"
-                    placeholder="Segundo Apellido" autocomplete="off">
+                    placeholder="Segundo Apellido" autocomplete="off" pattern="[A-Za-z]+">
             </div>
         </div>
 
@@ -122,15 +125,15 @@
                 <label for="municipio">Municipio/Localidad * &nbsp;</label>
                 <span *ngIf="f.submitted && f.controls['municipio'].errors" class="text-danger">Campo obligatorio</span>
                 <select class="form-control" name="municipio" [(ngModel)]="product.munLocalidad" required>
-                    <option *ngFor="let municipio of municipios " value={{municipio.name}}>{{municipio.name}}</option>
+                    <option *ngFor="let municipio of municipios " value="{{municipio.name}}">{{municipio.name}}</option>
                 </select>
             </div>
             <div class="form-group col-md-6" *ngIf="otra">
                 <label for="municipio2">Ingrese Ciudad* &nbsp;</label>
                 <span *ngIf="f.submitted && f.controls['municipio2'].errors" class="text-danger">Campo
                     obligatorio</span>
-                <input name="municipio2" id="municipio2" [(ngModel)]="product.munLocalidad" type="text"
-                    class="form-control" autocomplete="off" required>
+                <input name="municipio2" id="municipio2" (ngModel)="product.munLocalidad" type="text"
+                    class="form-control" autocomplete="off"  required>
             </div>
         </div>
 
@@ -142,8 +145,10 @@
                     placeholder="Telefono / Celular" autocomplete="off" required>
             </div>
             <div class="form-group col-md-6">
+                <span *ngIf="f.submitted && f.controls['correo'].errors" class="text-danger">Formato de correo no valido</span>
                 <input name="correo" [(ngModel)]="product.correo" type="email" class="form-control" id="correo"
-                    aria-describedby="emailHelp" placeholder="Correo Electronico" autocomplete="off">
+                    aria-describedby="emailHelp" placeholder="Correo Electronico" autocomplete="off" required
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
             </div>
 
         </div>
@@ -158,8 +163,10 @@
                     rows="1"></textarea>
             </div>
         </div>
-        
-        <button [disabled]="!f.valid" type="submit" class="btn btn-primary">Guardar</button>
 
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <!-- [disabled]="!f.valid" -->
     </form>
+
+
 </div>

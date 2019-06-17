@@ -38,7 +38,4 @@ export class FormService {
     addProducts(product: Product){
       this.productsCollection.add(product);
     }
-
-  
-
-}
+  }
