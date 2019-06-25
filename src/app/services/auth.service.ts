@@ -13,6 +13,7 @@ export class AuthService {
   private apikey = 'AIzaSyD9u6AQSijCvt3IHDxaAH4wqD7suPFpwX8';
 
   userToken: string;
+  user: string;
 
   //crear nuevos usuarios
   // https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=[API_KEY]
@@ -30,9 +31,11 @@ export class AuthService {
   }
 
   login(usuario: UsuarioModel) {
+    this.user = usuario.email;
     const authData = {
       ...usuario,
       returnSecureToken: true
+      
     };
     return this.http.post(
       `${this.url}/verifyPassword?key=${this.apikey}`,
@@ -46,7 +49,6 @@ export class AuthService {
   }
 
   nuevoUsuario(usuario: UsuarioModel) {
-
     const authData = {
       ...usuario,
       returnSecureToken: true
@@ -66,7 +68,7 @@ export class AuthService {
     this.userToken = idToken;
     localStorage.setItem('token', idToken);
     let hoy = new Date();
-    hoy.setSeconds(3600);
+    hoy.setSeconds(86400);
 
     localStorage.setItem('expira', hoy.getTime().toString())
 
@@ -96,7 +98,8 @@ export class AuthService {
       return false;
     }
     
-
-
   }
+
+  
+
 }

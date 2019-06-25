@@ -6,6 +6,9 @@ import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { UsuarioModel } from 'src/app/models/usuario.model';
+import { LoginComponent } from '../login/login.component';
 
 
 
@@ -39,12 +42,16 @@ export class CursosComponent implements OnInit {
   fechaReg: string;
   horaReg: string;
 
-  usuario: string;
+  user: string;
+
+  // cambio de array
+  servicio: string;
+  ciudad: string;
+  // primerA: string;
 
 
 
-  constructor(public productService: FormService, public selectService: SelectService,
-    private router:Router) {
+  constructor(public productService: FormService, public selectService: SelectService, private auth: AuthService) {
 
   }
 
@@ -56,37 +63,62 @@ export class CursosComponent implements OnInit {
 
     this.ciudades = this.selectService.getCiudad();
     this.onSelectCiudad(this.selectedCiudad.id);
-    
-    this.usuario = localStorage.getItem('email');
-    console.log(this.usuario);
+
+    if (this.auth.user == null) {
+      this.user = localStorage.getItem('email');
+      console.log(this.user, 'del local store');
+    } else {
+      this.user = this.auth.user;
+      console.log(this.user, 'del registro');
+    }
 
   }
 
   addProduct(f: NgForm) {
-   console.log("NgForm: ", f)
+    console.log("NgForm: ", f)
     if (f.invalid) {
       return;
     }
-    
+
     this.product.fechaReg = moment().format('l');
     this.product.horaReg = moment().format('LTS');
-    this.product.usuario = this.usuario;
-    console.log(this.product.ciudad);
+
+    this.product.usuario = this.user;
+
+    this.product.servicio = this.servicio;
+    this.product.ciudad = this.ciudad;
+    this.product.primerN = this.product.primerN.toUpperCase();
+
+    if (this.product.segundoN) {
+
+      this.product.segundoN = this.product.segundoN.toUpperCase();
+    }
+
+    this.product.primerA = this.product.primerA.toUpperCase();
+
+    if (this.product.segundoA) {
+
+      this.product.segundoA = this.product.segundoA.toUpperCase();
+
+    }
+
+    this.product.correo = this.product.correo.toLowerCase();
+    console.log(this.product.primerA);
+
+
+
 
     this.productService.addProducts(this.product);
     this.product = {} as Product;
     Swal.fire({
-      position: 'top-end',
+      position: 'center',
       type: 'success',
       title: 'Producto guardado con exito',
       showConfirmButton: false,
       timer: 1500
     })
-    //location.reload();
-    
+
     console.log('sale');
-    
-    //this.router.navigateByUrl('/cursos');
 
   }
 
@@ -94,20 +126,29 @@ export class CursosComponent implements OnInit {
   onSelect(servicioid) {
 
     this.states = this.selectService.getStates().filter((item) => item.servicioid == servicioid);
+
+    this.servicio = this.servicios[servicioid - 1].name;
+
+
+
   }
 
   onSelectCiudad(servicioid) {
-  
+
     this.municipios = this.selectService.getMunicipios().filter((item) => item.servicioid == servicioid)
+
+    this.ciudad = this.ciudades[servicioid - 1].name;
+
+
+
     if (servicioid == 3) {
-     
+
       return this.otra = true;
+
     } else {
       return this.otra = false;
     }
-    
+
   }
-
-
 
 }

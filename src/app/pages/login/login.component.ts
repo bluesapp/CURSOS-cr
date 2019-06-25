@@ -44,12 +44,11 @@ export class LoginComponent implements OnInit {
 
     this.auth.login(this.usuario).subscribe(resp => {
       console.log(resp);
-      console.log(this.usuario.email);
       Swal.close();
 
-      if (this.recordarme) {
+      
         localStorage.setItem('email', this.usuario.email);
-      }
+      
       this.router.navigateByUrl('/home');
 
     }, (err) => {

@@ -25,10 +25,11 @@ export interface Product {
 
 
 export class Servicio {
-   constructor(public id: number, public name: string) { }
+  constructor(public id: number, public name: string) { }
 }
 
 export class State {
   constructor(public id: number, public servicioid: number, public name: string) { }
 }
+
 
