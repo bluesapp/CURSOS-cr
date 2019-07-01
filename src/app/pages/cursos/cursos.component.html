@@ -3,7 +3,7 @@
     <br>
     <form (ngSubmit)="addProduct(f)" #f="ngForm" class="needs-validation mt-3 shadow p-3 mb-5 bg-white rounded" novalidate >
         <div class="text-right">
-            <p>Origen de información a través de*: <span *ngIf="!info">Teléfono</span><span *ngIf="info">Correo</span></p>
+            <p>Origen de información a través de: <span *ngIf="!info">Teléfono</span><span *ngIf="info">Correo</span></p>
             <button 
             (click)="info = !info" 
             type="button" 
