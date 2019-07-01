@@ -5,10 +5,7 @@ import { Product, Servicio, State } from '../../models/products';
 import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { UsuarioModel } from 'src/app/models/usuario.model';
-import { LoginComponent } from '../login/login.component';
 
 
 
@@ -46,9 +43,10 @@ export class CursosComponent implements OnInit {
 
   // cambio de array
   servicio: string;
-  ciudad: string;
-  // primerA: string;
-
+  ciudad: string ;
+  ciudadd: string = 'bogota';
+  // OPcion de telefono/correo
+  info: false;
 
 
   constructor(public productService: FormService, public selectService: SelectService, private auth: AuthService) {
@@ -72,6 +70,8 @@ export class CursosComponent implements OnInit {
       console.log(this.user, 'del registro');
     }
 
+    
+    
   }
 
   addProduct(f: NgForm) {

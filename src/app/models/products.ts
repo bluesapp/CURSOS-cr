@@ -21,6 +21,7 @@ export interface Product {
   horaReg?: string;
   usuario?: string;
   otraCiudad?: string;
+  origen?: string;
 }
 
 

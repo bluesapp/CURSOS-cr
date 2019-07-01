@@ -2,7 +2,19 @@
     <h3>Formulario de Registro</h3> <label  class="text-secondary">Usuario: <small class="text-info">{{ user }}</small></label>
     <br>
     <form (ngSubmit)="addProduct(f)" #f="ngForm" class="needs-validation mt-3 shadow p-3 mb-5 bg-white rounded" novalidate >
-
+        <div class="text-right">
+            <p>Origen de información a través de*: <span *ngIf="!info">Teléfono</span><span *ngIf="info">Correo</span></p>
+            <button 
+            (click)="info = !info" 
+            type="button" 
+            class="btn btn-info"> 
+            Cambiar a: <span *ngIf="info">Telefono</span> <span *ngIf="!info">Correo</span>
+            </button>
+            <h4>Prueba {{ info }}</h4>
+            
+           
+        </div>
+        <hr>
         <!-- Servicios -->
         <div class="form-group row">
             <label class="col-md-2 col-form-label">Servicios</label>
@@ -19,8 +31,8 @@
                     <option *ngFor="let servicio of servicios" value={{servicio.id}}>{{servicio.name}}</option>
                 </select>
             </div>
-            <label class="col-md-2 col-form-label">Tipo de Servicios</label>
-            <div class="col-md-4">
+            <label class="col-md-2 col-form-label animated fadeInLeft" *ngIf="servicio?.value">Tipo de Servicios</label>
+            <div class="col-md-4 animated fadeInLeft" *ngIf="servicio?.value">
                 <select 
                         class="form-control" 
                         name="tipoServicio" 
@@ -38,7 +50,7 @@
             <button (click)="mostrar = !mostrar" type="button" class="btn btn-primary"> Persona / Empresa </button>
         </div>
         <hr>
-        <div *ngIf="mostrar">
+        <div class="animated fadeInDown" *ngIf="mostrar">
             <!-- Datos empresa -->
 
             <label>Datos Empresa</label>
@@ -108,17 +120,18 @@
                         [(ngModel)]="product.documento"
                         required
                         #documento="ngModel"
-                        [ngClass]="{'is-invalid': documento?.errors?.required, 'is-valid' : true}">
+                        [ngClass]="{'is-invalid': documento?.errors?.required, 'is-valid' : documento?.value}">
                         >
                     <option selected> C.C.</option>
+                    <option value="N.N.">N.N.</option>
                     <option value="C.C.">C.E.</option>
                     <option value="Pasaporte">Pasaporte</option>
                     <option value="P.E.P.">P.E.P.</option>
                     <option value="T.I.">T.I.</option>
                 </select>
             </div>
-            <label class="col-2 col-form-label">Numero Doc.</label>
-            <div class="col-4">
+            <label *ngIf="documento?.value != 'N.N.'" class="col-2 col-form-label">Numero Doc.</label>
+            <div class="col-4" *ngIf="documento?.value != 'N.N.'">
                 <input 
                         name="nDocumento" 
                         [(ngModel)]="product.nit" 
@@ -126,17 +139,17 @@
                         class="form-control"
                         placeholder="Numero de Identidad" 
                         autocomplete="off" 
-                        minlength="5" 
+                        minlength="1" 
                         required 
                         #nDocumento="ngModel"
-                        [ngClass]="{'is-invalid': nDocumento?.errors?.required || nDocumento?.errors?.minlength , 'is-valid' : true}"
+                        [ngClass]="{'is-invalid': nDocumento?.errors?.required || nDocumento?.errors?.minlength, 'is-valid' : nDocumento?.value}"
                         >
             </div>
         </div>
 
 
         <div class="form-group row">
-            <label class="col-2 col-form-label">Primer Nombre</label>
+            <label class="col-2 col-form-label">{{ciudadd}}</label>
             <div class="col-4">
                 <input 
                         name="primerN" 
@@ -147,10 +160,10 @@
                         placeholder="Primer Nombre" 
                         autocomplete="off" 
                         minlength="2" 
-                        required 
-                        pattern="[A-Za-z]+"
+                        required="{{info}}"
+                        pattern="[A-Za-zÑñ]+"
                         #primerN="ngModel"
-                        [ngClass]="{'is-invalid': primerN?.errors?.required || primerN?.errors?.minlength || primerN?.errors?.pattern, 'is-valid' : true}"
+                        [ngClass]="{'is-invalid':  primerN?.errors?.required  || primerN?.errors?.minlength || primerN?.errors?.pattern  , 'is-valid' : primerN?.value}"
                         >
 
                         <!-- <div class="invalid-feedback" *ngIf="primerN?.errors?.required">
@@ -198,11 +211,11 @@
                         style="text-transform:uppercase;"
                         autocomplete="off" 
                         required 
-                        pattern="[a-zA-Z]+"
+                        pattern="[a-zA-ZÑñ]+"
                         required
                         minlength="2"
                         #primerA="ngModel"
-                        [ngClass]="{'is-invalid': primerA?.errors?.required || primerA?.errors?.minlength || primerA?.errors?.pattern, 'is-valid' : true}"
+                        [ngClass]="{'is-invalid': primerA?.errors?.required || primerA?.errors?.minlength || primerA?.errors?.pattern, 'is-valid' : primerA?.value}"
                         >
 
                         <!-- <div class="invalid-feedback" *ngIf="primerA?.errors?.required">
