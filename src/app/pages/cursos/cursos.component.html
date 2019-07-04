@@ -91,7 +91,6 @@
                             type="text" 
                             class="form-control" 
                             [required]="origen.value=='telefono'"
-                            pattern="[A-Za-z]+"
                             #nombreE="ngModel"
                             [ngClass]="{'is-invalid': nombreE?.errors?.required, 'is-valid' : nombreE?.value}"
                             >
