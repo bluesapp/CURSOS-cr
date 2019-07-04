@@ -50,7 +50,7 @@ export class CursosComponent implements OnInit {
 
 
   constructor(public productService: FormService, public selectService: SelectService, private auth: AuthService) {
-
+    
   }
 
   ngOnInit() {
@@ -61,6 +61,7 @@ export class CursosComponent implements OnInit {
 
     this.ciudades = this.selectService.getCiudad();
     this.onSelectCiudad(this.selectedCiudad.id);
+    this.product.origen = 'telefono';
 
     if (this.auth.user == null) {
       this.user = localStorage.getItem('email');
@@ -87,19 +88,22 @@ export class CursosComponent implements OnInit {
 
     this.product.servicio = this.servicio;
     this.product.ciudad = this.ciudad;
-    this.product.primerN = this.product.primerN.toUpperCase();
+
+    if (this.product.primerN ) {
+      this.product.primerN = this.product.primerN.toUpperCase();
+    }
 
     if (this.product.segundoN) {
 
       this.product.segundoN = this.product.segundoN.toUpperCase();
     }
 
-    this.product.primerA = this.product.primerA.toUpperCase();
+    if (this.product.primerA) {
+      this.product.primerA = this.product.primerA.toUpperCase();
+    } 
 
     if (this.product.segundoA) {
-
       this.product.segundoA = this.product.segundoA.toUpperCase();
-
     }
 
     this.product.correo = this.product.correo.toLowerCase();
@@ -119,6 +123,7 @@ export class CursosComponent implements OnInit {
     })
 
     console.log('sale');
+    this.product.origen = 'telefono';
 
   }
 
