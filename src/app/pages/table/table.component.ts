@@ -4,7 +4,7 @@ import { FormService } from '../../services/cursos.service';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styles: []
+  styles: ['./table.component.css']
 })
 
 

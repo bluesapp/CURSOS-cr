@@ -49,6 +49,7 @@ export class CursosComponent implements OnInit {
   info: false;
 
 
+
   constructor(public productService: FormService, public selectService: SelectService, private auth: AuthService) {
     
   }
@@ -107,20 +108,23 @@ export class CursosComponent implements OnInit {
     }
 
     this.product.correo = this.product.correo.toLowerCase();
-    console.log(this.product.primerA);
+
+
+    console.log(this.otra);
+    console.log(this.product.munLocalidad);
 
 
 
 
-    this.productService.addProducts(this.product);
-    this.product = {} as Product;
-    Swal.fire({
-      position: 'center',
-      type: 'success',
-      title: 'Producto guardado con exito',
-      showConfirmButton: false,
-      timer: 1500
-    })
+    // this.productService.addProducts(this.product);
+    // this.product = {} as Product;
+    // Swal.fire({
+    //   position: 'center',
+    //   type: 'success',
+    //   title: 'Producto guardado con exito',
+    //   showConfirmButton: false,
+    //   timer: 1500
+    // })
 
     console.log('sale');
     this.product.origen = 'telefono';
