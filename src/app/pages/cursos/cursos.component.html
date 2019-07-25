@@ -250,6 +250,7 @@
     </div>
 
     <!-- area -->
+
     <div class="form-group row">
         <label class="col-2 col-form-label">Ciudad</label>
         <div class="col-4">
@@ -266,7 +267,7 @@
             </select>
         </div>
 
-        <!-- <label class="col-2 col-form-label" *ngIf="!otra">Localidad/Municipio</label>
+        <label class="col-2 col-form-label" *ngIf="!otra">Localidad/Municipio</label>
         <div class="col-4" *ngIf="!otra">
             <select 
                     class="form-control" 
@@ -279,10 +280,10 @@
                 <option *ngFor="let municipio of municipios " value="{{municipio.name}}">{{municipio.name}}
                 </option>
             </select>
-        </div> -->
+        </div>
 
-        <label class="col-2 col-form-label" >Ingrese Ciudad</label>
-        <div class="col-4">
+        <label class="col-2 col-form-label"  *ngIf="otra">Ingrese Ciudad</label>
+        <div class="col-4"  *ngIf="otra">
             <input 
                     name="municipio" 
                     (ngModel)="product.munLocalidad" 

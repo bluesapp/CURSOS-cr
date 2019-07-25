@@ -29,6 +29,10 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { TableComponent } from './pages/table/table.component';
 
+// PIPES /**** */
+import { FilterPipe } from './pipes/filter.pipe';
+import { ConsultaComponent } from './pages/consulta/consulta.component';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +42,9 @@ import { TableComponent } from './pages/table/table.component';
     RegistroComponent,
     CursosComponent,
     NavbarComponent,
-    TableComponent
+    TableComponent,
+    FilterPipe,
+    ConsultaComponent
   ],
   imports: [
     BrowserModule,

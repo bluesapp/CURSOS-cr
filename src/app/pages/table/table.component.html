@@ -1,46 +1,86 @@
-<div class="table-responsive  overflow-auto" >
-        <div class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-width: 1600px; max-height: 700px;">
-<table class="table table-sm">
-    <thead class="table-dark">
+<!-- <div class="row">
+  <div class="col">
+    <div class="form-group">
+      <input type="date" class="form-control" name="filterPoste" value="dfg" [(ngModel)]="filterPost"
+        (change)="onKey($event)">
+    </div>
+  </div>
+</div> -->
+
+<div>
+    fP: {{filterPost}}
+  </div>
+  <div>
+    fecha: {{filterPost}}
+  </div>
+
+
+  
+<!-- <div class="row">
+  <div class="col-2">
+    <input type="date" class="form-control " value={{filterPost}} name="filterPost" [(ngModel)]="filterPost"
+      (change)="onKey($event)">
+  </div>
+  <div class="col-4">
+    <h6>Fecha Seleccionada: {{ filterPost }}</h6>
+  </div>
+  <div class="col-3">
+    <h6>Total registro: {{products.length}}</h6>
+  </div>
+  <div class="col-2">
+    <button class="btn btn-success" type="button" (click)="exportAsXLSX()">Descargar</button>
+  </div>
+  <hr>
+
+</div> -->
+
+
+
+<div class="table-responsive  overflow-auto">
+  <div class="overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-width: 1600px; max-height: 600px;">
+    <table class="table-bordered table-sm" id="myTable">
+      <thead class="table-dark">
         <tr>
-            <th scope="col">I.D.</th>
-            <th scope="col">Nombre E.</th>
-            <th scope="col">Tel. Emp.</th>
-            <th scope="col">Tel. Per.</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
-            <th scope="col">Ciudad</th>
-            <th scope="col">Localidad</th>
-            <th scope="col">Servicio</th>
-            <th scope="col">T. Servicio</th>
-            <th scope="col">Correo</th>
-            <th scope="col">Observación</th>
-            <th scope="col">Usuario</th>
-            <th scope="col">Fecha Reg</th>
-            <th scope="col">Origen</th>
+          <th scope="col">I.D.</th>
+          <th scope="col">Nombre E.</th>
+          <th scope="col">Tel. Emp.</th>
+          <th scope="col">Tel. Per.</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Ciudad</th>
+          <th scope="col">Localidad</th>
+          <th scope="col">Servicio</th>
+          <th scope="col">T. Servicio</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Observación</th>
+          <th scope="col">Usuario</th>
+          <th scope="col">Fecha Reg</th>
+          <th scope="col">Origen</th>
         </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let p of products">
-            <!-- <th scope="row">1</th> -->
-            <td>{{p.nit}}</td>
-            <td>{{p.nombreE}}</td>
-            <td>{{p.telefonoE}}</td>
-            <td>{{p.telCel}}</td>
-            <td>{{p.primerN}}</td>
-            <td>{{p.primerA}}</td>
-            <td>{{p.ciudad}}</td>
-            <td>{{p.munLocalidad}}{{p.otraCiudad}}</td>
-            <td>{{p.servicio}}</td>
-            <td>{{p.tipoServicio}}</td>
-            <td>{{p.correo}}</td>
-            <td>{{p.observacion}}</td>
-            <td>{{p.usuario}}</td>
-            <!-- <td>{{p.fechaReg}}-{{p.horaReg}}</td> -->
-            <td>{{p.fechaReg | date:'dd/MM/y'}} {{p.horaReg}}</td>
-            <td>{{p.origen}}</td>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of products | filter: filterPost">
+          <td>{{p.nit}}</td>
+          <td>{{p.nombreE}}</td>
+          <td>{{p.telefonoE}}</td>
+          <td>{{p.telCel}}</td>
+          <td>{{p.primerN}}</td>
+          <td>{{p.primerA}}</td>
+          <td>{{p.ciudad}}</td>
+          <td>{{p.munLocalidad}}{{p.otraCiudad}}</td>
+          <td>{{p.servicio}}</td>
+          <td>{{p.tipoServicio}}</td>
+          <td>{{p.correo}}</td>
+          <td>{{p.observacion}}</td>
+          <td>{{p.usuario}}</td>
+          <td>{{p.fechaReg | date:'dd/MM/y'}} {{p.horaReg}}</td>
+          <td>{{p.origen}}</td>
         </tr>
-    </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
 </div>
+
+<div>
+
 </div>

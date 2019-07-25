@@ -116,15 +116,15 @@ export class CursosComponent implements OnInit {
 
 
 
-    // this.productService.addProducts(this.product);
-    // this.product = {} as Product;
-    // Swal.fire({
-    //   position: 'center',
-    //   type: 'success',
-    //   title: 'Producto guardado con exito',
-    //   showConfirmButton: false,
-    //   timer: 1500
-    // })
+    this.productService.addProducts(this.product);
+    this.product = {} as Product;
+    Swal.fire({
+      position: 'center',
+      type: 'success',
+      title: 'Producto guardado con exito',
+      showConfirmButton: false,
+      timer: 1500
+    })
 
     console.log('sale');
     this.product.origen = 'telefono';
